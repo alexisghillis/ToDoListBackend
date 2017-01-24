@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cassandra>
+    <use>
+        use hands_on
+    </use>
+    <tables>
+        <table>
+            create table if not exists tasks (id text, name text, created text, modified text, description text, status text,
+            primary key (id))
+        </table>
+    </tables>
+
+    <indexes>
+    </indexes>
+
+</cassandra>
+
+
+
