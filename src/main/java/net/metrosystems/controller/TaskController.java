@@ -16,6 +16,11 @@ public class TaskController {
     this.taskRepository = taskRepository;
   }
 
+
+  @PutMapping(value = "task/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  public void putChangeStatus(@PathVariable("id") String id, @RequestBody String status) {taskRepository.updateTaskStatus(id,status);}
+
+
   @GetMapping(value = "task/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public Task getTaskById(@PathVariable("id") String id) {
     return taskRepository.getTaskById(id);

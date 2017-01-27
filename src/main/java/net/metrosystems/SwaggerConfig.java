@@ -29,7 +29,7 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
   }
 
   private ApiInfo apiInfo() {
-    return new ApiInfoBuilder().title("Hands on Spring boot with cassandra")
-        .description("Dummy rest endpoints to get a flavor").version("1.0").build();
+    return new ApiInfoBuilder().title("Tasks for Demo Project")
+        .description("Tasks endpoints").version("1.0").build();
   }
 }

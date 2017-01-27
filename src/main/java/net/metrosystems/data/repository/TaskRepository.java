@@ -32,4 +32,6 @@ public class TaskRepository {
   }
 
   public void deleteTaskById(String id) { accessor.deleteTaskById(id); }
+
+  public void updateTaskStatus(String id, String status) {accessor.updateTaskStatus(id,status);}
 }
