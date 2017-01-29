@@ -5,38 +5,46 @@ import net.metrosystems.data.repository.TaskRepository;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 @RestController("task")
 public class TaskController {
 
-  private final TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
 
-  public TaskController(TaskRepository taskRepository) {
-    this.taskRepository = taskRepository;
-  }
-
-
-  @PutMapping(value = "task/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-  public void putChangeStatus(@PathVariable("id") String id, @RequestBody String status) {taskRepository.updateTaskStatus(id,status);}
+    public TaskController(TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
+    }
 
 
-  @GetMapping(value = "task/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-  public Task getTaskById(@PathVariable("id") String id) {
-    return taskRepository.getTaskById(id);
-  }
+    @PutMapping(value = "task/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public void putChangeStatus(@PathVariable("id") String id, @RequestBody String status) {
+        String modifiedStatus = status.replaceAll("[^\\dA-Za-z ]", "").replaceAll("status","");
+        taskRepository.updateTaskStatus(id, modifiedStatus);
+    }
 
-  @GetMapping(value = "task", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-  public List<Task> getAll() {
-    return taskRepository.getAll();
-  }
 
-  @PostMapping(value = "task", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-  public void postNewTask(@RequestBody Task task) {
-    taskRepository.saveTask(task);
-  }
+    @GetMapping(value = "task/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Task getTaskById(@PathVariable("id") String id) {
+        return taskRepository.getTaskById(id);
+    }
 
-  @DeleteMapping(value="task/{id}")
-  public void deleteTaskById(@PathVariable("id") String id) { taskRepository.deleteTaskById(id);};
+    @GetMapping(value = "task", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<Task> getAll() {
+        return taskRepository.getAll();
+    }
+
+    @PostMapping(value = "task", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public void postNewTask(@RequestBody Task task) {
+        taskRepository.saveTask(task);
+    }
+
+    @DeleteMapping(value = "task/{id}")
+    public void deleteTaskById(@PathVariable("id") String id) {
+        taskRepository.deleteTaskById(id);
+    }
+
+    ;
 
 }

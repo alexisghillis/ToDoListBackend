@@ -19,6 +19,7 @@ public interface TaskAccessor {
   @Query("delete FROM tasks WHERE id=:id")
   void deleteTaskById(@Param("id") String id);
 
-  @Query("update from tasks SET status=:status WHERE id=:id")
+  @Query("update tasks SET status=:status WHERE id=:id")
   void updateTaskStatus(@Param("id") String id,@Param("status") String status);
+
 }
