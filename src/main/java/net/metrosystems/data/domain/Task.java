@@ -6,6 +6,9 @@ import com.datastax.driver.mapping.annotations.Table;
 
 import lombok.*;
 
+import java.util.Date;
+import java.util.UUID;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -14,22 +17,22 @@ import lombok.*;
 @Builder
 public class Task {
 
-  @Column(name = "id")
-  @PartitionKey // echivaleaza aproximativ cu primary key din sql
-  String id;
+    @Column(name = "id")
+    @PartitionKey // echivaleaza aproximativ cu primary key din sql
+            UUID id;
 
-  @Column(name = "name")
-  String name;
+    @Column(name = "name")
+    String name;
 
-  @Column(name = "created")
-  String created;
+    @Column(name = "created")
+    Date created;
 
-  @Column(name = "modified")
-  String modified;
+    @Column(name = "modified")
+    Date modified;
 
-  @Column(name = "description")
-  String description;
+    @Column(name = "description")
+    String description;
 
-  @Column(name = "status")
-  String status;
+    @Column(name = "status")
+    String status;
 }

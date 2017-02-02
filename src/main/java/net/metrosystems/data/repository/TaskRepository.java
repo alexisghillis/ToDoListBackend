@@ -6,10 +6,12 @@ import net.metrosystems.data.accessors.TaskAccessor;
 import net.metrosystems.data.domain.Task;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
-public class TaskRepository {
+public class TaskRepository implements Comparable<Task> {
   private final CassandraPersistenceService persistenceService;
   private final TaskAccessor accessor;
 
@@ -20,10 +22,14 @@ public class TaskRepository {
 
   public void saveTask(Task task) {
     Mapper<Task> mapper = persistenceService.getMappingManager().mapper(Task.class);
+    task.setModified(new Date());
+    task.setCreated(new Date());
+    task.setStatus("NOT DONE");
+    task.setId(UUID.randomUUID());
     mapper.save(task);
   }
 
-  public Task getTaskById(String id) {
+  public Task getTaskById(UUID id) {
     return accessor.getTaskById(id);
   }
 
@@ -31,7 +37,15 @@ public class TaskRepository {
     return accessor.getAllTask().all();
   }
 
-  public void deleteTaskById(String id) { accessor.deleteTaskById(id); }
+  public void deleteTaskById(UUID id) { accessor.deleteTaskById(id); }
 
-  public void updateTaskStatus(String id, String status) {accessor.updateTaskStatus(id,status);}
+  public void updateTaskStatus(UUID id, String status) {
+    accessor.updateTaskStatus(id,status);
+  }
+
+  @Override
+  public int compareTo(Task o) {
+    Date compareCreated = o.getCreated();
+    return o.getCreated().compareTo(compareCreated);
+  }
 }

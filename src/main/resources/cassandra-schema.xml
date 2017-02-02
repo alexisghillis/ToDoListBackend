@@ -5,7 +5,7 @@
     </use>
     <tables>
         <table>
-            create table if not exists tasks (id text, name text, created text, modified text, description text, status text,
+            create table if not exists tasks (id uuid, name text, created timestamp, modified timestamp, description text, status text,
             primary key (id))
         </table>
     </tables>

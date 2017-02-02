@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController("task")
 public class TaskController {
@@ -19,14 +20,14 @@ public class TaskController {
 
 
     @PutMapping(value = "task/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public void putChangeStatus(@PathVariable("id") String id, @RequestBody String status) {
+    public void putChangeStatus(@PathVariable("id") UUID id, @RequestBody String status) {
         String modifiedStatus = status.replaceAll("[^\\dA-Za-z ]", "").replaceAll("status","");
         taskRepository.updateTaskStatus(id, modifiedStatus);
     }
 
 
     @GetMapping(value = "task/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Task getTaskById(@PathVariable("id") String id) {
+    public Task getTaskById(@PathVariable("id") UUID id) {
         return taskRepository.getTaskById(id);
     }
 
@@ -41,7 +42,7 @@ public class TaskController {
     }
 
     @DeleteMapping(value = "task/{id}")
-    public void deleteTaskById(@PathVariable("id") String id) {
+    public void deleteTaskById(@PathVariable("id") UUID id) {
         taskRepository.deleteTaskById(id);
     }
 
